@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Router from "next/router";
 import {
   Navbar,
@@ -13,6 +13,12 @@ import {
 } from "react-bootstrap";
 import style from "../styles/header.module.css";
 const Header = () => {
+  const [isActive, setIsActive] = useState("");
+
+  useEffect(() => {
+    setIsActive(window.location.pathname);
+  }, []);
+
   return (
     <Container fluid>
       {/* <Container> */}
@@ -27,43 +33,47 @@ const Header = () => {
               <Nav.Link
                 href="/"
                 className={style.navlink}
-                onClick={() => Router.push("/", "/")}
+                active={isActive === "/"}
               >
                 Home
               </Nav.Link>
               <Nav.Link
                 href="/Shop"
-                onClick={() => Router.push("/Shop", "/shop")}
                 className={style.navlink}
+                active={isActive === "/Shop"}
               >
                 Shop
               </Nav.Link>
               <Nav.Link
                 href="/About"
                 className={style.navlink}
-                onClick={() => Router.push("/About", "/about-us")}
+                active={isActive === "/AboutUs"}
               >
                 About Us
               </Nav.Link>
               <Nav.Link
                 href="Contact"
                 className={style.navlink}
-                onClick={() => Router.push("/Contact", "/contact")}
+                active={isActive === "/Contact"}
               >
                 Contact
               </Nav.Link>
 
-              <Nav.Link className={style.navlink}>
+              <Nav.Link className={style.navlink} active={isActive === "/Cart"}>
                 <div className={style.cartDiv}>
                   <img src="../Images/cartImage.png" height={24} width={24} />
                 </div>
               </Nav.Link>
-              <Nav.Link className={style.navlink}>
+              <Nav.Link className={style.navlink} active={isActive === "/Like"}>
                 <div className={style.likeDiv}>
                   <img src="../Images/likeImage.png" height={24} width={24} />
                 </div>
               </Nav.Link>
-              <Nav.Link className={style.navlink}>
+              <Nav.Link
+                className={style.navlink}
+                href="Login"
+                active={isActive === "/Login"}
+              >
                 <div className={style.profileDiv}>
                   <img
                     src="../Images/profileImage.png"
